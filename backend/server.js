@@ -4,7 +4,7 @@ const express = require('express');
 const mainRoutes = require("./routes/main")
 
 // Constants
-const PORT = 3000;
+const PORT = 5000;
 const HOST = '0.0.0.0';
 
 // App
