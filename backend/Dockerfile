@@ -3,7 +3,7 @@ FROM node:18-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
-RUN npm install --save-dev nodemon
+# RUN npm install --save-dev nodemon
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied

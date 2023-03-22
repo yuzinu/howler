@@ -15,6 +15,7 @@
     "start": "nodemon -e 'js, jsx, json' server.js -L"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.1"
   },
   "devDependencies": {
