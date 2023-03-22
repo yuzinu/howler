@@ -15,17 +15,24 @@ services:
     command: npm run start
     networks:
       - integration
+    volumes:
+      - /usr/src/app/node_modules
+      - ./backend:/usr/src/app
   frontend:
     build: ./frontend
     container_name: frontend
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:5000
+      # - REACT_APP_BACKEND_URL=http://localhost:5000
+      CHOKIDAR_USEPOLLING: "true"
     ports:
       - '3000:3000'
     expose:
       - '3000'
     networks:
       - integration
+    volumes:
+      - /usr/src/app/node_modules
+      - ./frontend:/usr/src/app
   db:
     image: postgres:alpine
     environment:

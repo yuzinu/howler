@@ -2,20 +2,22 @@
   "name": "howler",
   "version": "1.0.0",
   "description": "The number #1 site to howl at the moon!",
-  "contributors":
-    [
-      {
-        "name": "Eugene Moon"
-      },
-      {
-        "name": "Eric Moon"
-      }
-    ],
+  "contributors": [
+    {
+      "name": "Eugene Moon"
+    },
+    {
+      "name": "Eric Moon"
+    }
+  ],
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon -e 'js, jsx, json' server.js -L"
   },
   "dependencies": {
     "express": "^4.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
   }
 }
