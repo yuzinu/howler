@@ -1,3 +1,3 @@
-exports.getHello = (req, res) => {
-    res.send('Hello World');
+exports.getHello = (req, res, next) => {
+    res.send("API is working properly! By EMoons");
 };
