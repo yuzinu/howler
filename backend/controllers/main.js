@@ -3,7 +3,11 @@ const pool = require("../db/database.js");
 exports.getHowls = async (req, res, next) => {
     const { rows } = await pool.query('SELECT * FROM howls');
     
-    res.json(rows);
+    if(rows.length > 0) {
+        res.json(rows);
+    }else{
+        res.send("No howls found!")
+    }
 };
 
 exports.createHowl = async (req, res, next) => {
@@ -15,7 +19,7 @@ exports.createHowl = async (req, res, next) => {
 exports.changeHowl = async (req, res, next) => {
     const id = parseInt(req.params.id);
 
-    await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp  WHERE id = $2`,
+    await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp - interval '4 hours' WHERE id = $2`,
     [req.body.caption, id]);
     
     res.send("Howl updated!");
