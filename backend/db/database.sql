@@ -6,7 +6,7 @@ CREATE TABLE howls (
 );
 
 -- new howl
--- INSERT INTO howls (caption) VALUES('hello');
+INSERT INTO howls (caption) VALUES('hello');
 
 -- get all howls
--- SELECT * FROM howls;
+SELECT * FROM howls;
