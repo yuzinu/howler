@@ -1,7 +1,6 @@
 const pool = require("../db/database.js");
 
 exports.getHowls = async (req, res, next) => {
-    // res.send("API is working properly! By EMoons");
     const { rows } = await pool.query('SELECT * FROM howls');
     
     res.json(rows);
@@ -20,8 +19,6 @@ exports.changeHowl = async (req, res, next) => {
     [req.body.caption, id]);
     
     res.send("Howl updated!");
-    // res.send(req.params);
-    // res.send(req.body.caption);
 };
 
 exports.silenceHowl = async (req, res, next) => {
