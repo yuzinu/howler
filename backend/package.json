@@ -12,7 +12,8 @@
   ],
   "main": "server.js",
   "scripts": {
-    "start": "nodemon -e 'js, jsx, json' server.js -L"
+    "start": "nodemon -e 'js, jsx, json' server.js -L",
+    "test": "mocha --recursive ./spec/*.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -20,7 +21,7 @@
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21",
-    "cypress":  "^12.8.1"
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.21"
   }
 }

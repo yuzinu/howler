@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: "howler-frontend:latest"
+    networks:
+      - integration
+    container_name: frontend
+  cypress:
+    image: "cypress/included:12.3.0"
+    container_name: "cypress"
+    command: npx cypress run
+    environment:
+      - CYPRESS_baseUrl=http://frontend:3000
+    networks:
+      - integration
+    volumes:
+      - ./frontend/cypress:/cypress
+      - ./frontend/cypress/cypress.config.js:/cypress.config.js
+    depends_on:
+      - frontend
+networks:
+  integration:
+    driver: bridge
