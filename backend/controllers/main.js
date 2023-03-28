@@ -6,12 +6,12 @@ module.exports = {
             const { rows } = await pool.query('SELECT * FROM howls');
             
             if(!rows) {
-                res.send("No howls found!");
+                res.status(404).send("No howls found!");
             }else{
-                res.json(rows);
+                res.status(200).json(rows);
             }
         } catch (err) {
-            console.log(err);
+            res.status(500).send(err);
         }
     },
 
@@ -23,10 +23,10 @@ module.exports = {
                 res.send("No howl found!");
             }else{
                 const howl = rows[0];
-                res.json(howl);
+                res.status(200).json(howl);
             }
         } catch (err) {
-            console.log(err);
+            res.status(500).send(err);
         }
     },
 
@@ -34,9 +34,9 @@ module.exports = {
         try {
             await pool.query('INSERT INTO howls (caption) VALUES($1)', [req.body.caption]);
         
-            res.send("Howl created!");
+            res.status(200).send("Howl created!");
         } catch (err) {
-            console.log(err);
+            res.status(500).send(err);
         }
     },
 
@@ -47,9 +47,9 @@ module.exports = {
             await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp - interval '4 hours' WHERE id = $2`,
             [req.body.caption, id]);
             
-            res.send("Howl updated!");
+            res.status(200).send("Howl updated!");
         } catch (err) {
-            console.log(err);
+            res.status(500).send(err);
         }
     },
 
@@ -59,9 +59,9 @@ module.exports = {
 
             await pool.query("DELETE FROM howls WHERE id = $1", [id]);
             
-            res.send("Howl deleted");
+            res.status(200).send("Howl deleted");
         } catch (err) {
-            console.log(err);
+            res.status(500).send(err);
         }
     },
 };
