@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const HowlPreview = ({ id, caption }) =>
+const HowlPreview = ({ id, caption }) => {
+  const navigate = useNavigate();
+
+  return (
     <li>
-        <Link to={`/howl/${id}`}>
-                {caption}
-        </Link>
+      <div onClick={() => navigate(`/howl/${id}`)}>
+        {caption}
+      </div>
     </li>
+  )
+}
 
 export default HowlPreview;

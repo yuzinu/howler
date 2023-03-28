@@ -1,50 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import { createRoot } from "react-dom/client";
 import {
-    createBrowserRouter,
-    RouterProvider,
-    Outlet,
-    ScrollRestoration,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
 } from "react-router-dom";
+
 import Howl from './components/Howl';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 
-const AppLayout = () => {
-    return (
-        <>
-            <ScrollRestoration />
-            <nav>
-              <ul>
-                <li><a href='http://localhost:3000/home'>Home</a></li>
-              </ul>
-            </nav>
-            <Outlet />
-        </>
-    );
-};
+// layouts
+import RootLayout from './layouts/RootLayout';
 
-const router = createBrowserRouter([
-    {
-        element: <AppLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: "/home",
-                element: <Home />,
-            },
-            {
-                path: "/howl/:howlId",
-                element: <Howl />,
-            },
-        ],
-    },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="howl/:howlId" element={<Howl />} />
+    </Route>
+  )
+);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider
+      router={router}
+      fallbackElement={<ErrorPage />}
+    />
+  </React.StrictMode>
 );
