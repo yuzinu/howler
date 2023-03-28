@@ -44,10 +44,10 @@ module.exports = {
         try {
             const id = parseInt(req.params.id);
 
-            await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp - interval '4 hours' WHERE id = $2`,
+            await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp WHERE id = $2`,
             [req.body.caption, id]);
             
-            res.status(200).send("Howl updated!");
+            res.status(200);
         } catch (err) {
             res.status(500).send(err);
         }
