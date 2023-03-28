@@ -1,11 +1,16 @@
-const path = require("path");
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+import path from "path";
+import { fileURLToPath } from 'url';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
 
-module.exports={
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
   entry: {
     bundle: path.resolve(__dirname, './src/index.jsx'),
   },
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, "public"),
     filename: '[name][contenthash].js',
     clean: true,
