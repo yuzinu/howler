@@ -16,7 +16,7 @@ const AppLayout = () => {
             <ScrollRestoration />
             <nav>
               <ul>
-                <li></li>
+                <li><a href='http://localhost:3000/home'>Home</a></li>
               </ul>
             </nav>
             <Outlet />
