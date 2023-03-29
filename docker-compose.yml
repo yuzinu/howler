@@ -54,6 +54,7 @@ services:
       - integration
     volumes:
       - ./postgres-db:/var/lib/postgresql/data
+      - ./backend/db/database.sql:/docker-entrypoint-initdb.d/database.sql
 networks:
   integration:
     driver: bridge

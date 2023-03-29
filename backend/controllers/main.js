@@ -1,30 +1,67 @@
 const pool = require("../db/database.js");
 
-exports.getHowls = async (req, res, next) => {
-    const { rows } = await pool.query('SELECT * FROM howls');
-    
-    res.json(rows);
-};
+module.exports = {
+    getHowls: async (req, res, next) => {
+        try {
+            const { rows } = await pool.query('SELECT * FROM howls');
+            
+            if(!rows) {
+                res.status(404).send("No howls found!");
+            }else{
+                res.status(200).json(rows);
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 
-exports.createHowl = async (req, res, next) => {
-    await pool.query('INSERT INTO howls (caption) VALUES($1)', [req.body.caption]);
-    
-    res.send("Howl created!");
-};
+    getHowl: async (req, res, next) => {
+        try {
+            const { rows } = await pool.query(`SELECT * FROM howls WHERE id = ${req.params.id}`);
+            
+            if(!rows) {
+                res.send("No howl found!");
+            }else{
+                const howl = rows[0];
+                res.status(200).json(howl);
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 
-exports.changeHowl = async (req, res, next) => {
-    const id = parseInt(req.params.id);
+    createHowl: async (req, res, next) => {
+        try {
+            await pool.query('INSERT INTO howls (caption) VALUES($1)', [req.body.caption]);
+        
+            res.status(200).send("Howl created!");
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 
-    await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp  WHERE id = $2`,
-    [req.body.caption, id]);
-    
-    res.send("Howl updated!");
-};
+    changeHowl: async (req, res, next) => {
+        try {
+            const id = parseInt(req.params.id);
 
-exports.silenceHowl = async (req, res, next) => {
-    const id = parseInt(req.params.id);
+            await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp WHERE id = $2`,
+            [req.body.caption, id]);
+            
+            res.status(200);
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 
-    await pool.query("DELETE FROM howls WHERE id = $1", [id]);
-    
-    res.send("Howl deleted");
+    silenceHowl: async (req, res, next) => {
+        try {
+            const id = parseInt(req.params.id);
+
+            await pool.query("DELETE FROM howls WHERE id = $1", [id]);
+            
+            res.status(200).send("Howl deleted");
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 };
