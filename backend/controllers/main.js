@@ -10,9 +10,9 @@ module.exports = {
 
             await pool.query('INSERT INTO users (username) VALUES ($1) ON CONFLICT (username) DO NOTHING', [username]);
             
-            res.send('Welcome, ' + req.oidc.user.nickname);
+            res.status(200).json({username: username});
           } else {
-            res.send('You must log in to continue');
+            res.status(404).send('You must log in to continue');
           }
         } catch (err) {
           res.status(500).send(err);
