@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink, Outlet} from "react-router-dom";
+import LoginButton from "../components/LoginButton";
+import LogoutButton from "../components/LogoutButton";
 
 export default function RootLayout() {
   return (
@@ -8,6 +10,8 @@ export default function RootLayout() {
         <nav>
           <h1>Meepo</h1>
           <NavLink to="/">Home</NavLink>
+          <LoginButton />
+          <LogoutButton />
         </nav>
       </header>
 
@@ -15,5 +19,5 @@ export default function RootLayout() {
         <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
