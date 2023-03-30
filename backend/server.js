@@ -13,7 +13,7 @@ const PORT = 5000;
 const HOST = '0.0.0.0';
 
 //Use .env file
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "../.env" });
 
 app.use(cors());
 
