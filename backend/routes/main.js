@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const mainController = require("../controllers/main");
+const { ensureAuth } = require("../middleware/auth");
 
-router.get("/api/feed", mainController.getHowls);
+router.get("/", mainController.signedIn);
 
-router.get("/api/howl/:id", mainController.getHowl);
+router.get("/api/feed", ensureAuth, mainController.getHowls);
 
-router.post("/api/howl/createHowl", mainController.createHowl);
+router.get("/api/howl/:id", ensureAuth, mainController.getHowl);
 
-router.patch("/api/howl/changeHowl/:id", mainController.changeHowl);
+router.post("/api/howl/createHowl/", ensureAuth, mainController.createHowl);
 
-router.delete("/api/howl/silenceHowl/:id", mainController.silenceHowl);
+router.patch("/api/howl/changeHowl/:id", ensureAuth, mainController.changeHowl);
+
+router.delete("/api/howl/silenceHowl/:id", ensureAuth, mainController.silenceHowl);
 
 module.exports = router;
