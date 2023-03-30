@@ -25,9 +25,6 @@ function Home() {
                     </div>
                 )
             }
-            <h1>
-                Welcome to Howler
-            </h1>
             <Feed />
         </>
     )
