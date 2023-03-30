@@ -37,9 +37,9 @@ module.exports = {
     // Get the howl from the user
     getHowl: async (req, res) => {
         try {
-            const howlID = req.params.id;
+            const howlId = req.params.id;
             
-            const { rows } = await pool.query(`SELECT * FROM howls WHERE id = ${howlID}`);
+            const { rows } = await pool.query(`SELECT * FROM howls WHERE id = ${howlId}`);
 
             if(!rows) {
                 res.send("No howl found!");
