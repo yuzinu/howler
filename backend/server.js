@@ -33,10 +33,6 @@ const authConfig = {
 
 app.use(auth(authConfig));
 
-app.get("/", (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
-
 app.use("/", mainRoutes);
 
 app.listen(PORT, HOST, () => {
