@@ -20,7 +20,7 @@ module.exports = {
     },
 
     // Get all howls for the feed
-    getHowls: async (req, res, next) => {        
+    getHowls: async (req, res) => {        
         try {
             const { rows } = await pool.query('SELECT * FROM howls');
             
@@ -35,11 +35,11 @@ module.exports = {
     },
 
     // Get the howl from the user
-    getHowl: async (req, res, next) => {
+    getHowl: async (req, res) => {
         try {
-            const postID = req.params.id;
+            const howlID = req.params.id;
             
-            const { rows } = await pool.query(`SELECT * FROM howls WHERE id = ${postID}`);
+            const { rows } = await pool.query(`SELECT * FROM howls WHERE id = ${howlID}`);
 
             if(!rows) {
                 res.send("No howl found!");
@@ -53,12 +53,12 @@ module.exports = {
     },
 
     // Create a new howl for the user
-    createHowl: async (req, res, next) => {
+    createHowl: async (req, res) => {
         try {
             const caption = req.body.caption;
-            // const username = req.oidc.user.nickname;
+            const username = req.oidc.user.nickname;
 
-            await pool.query(`INSERT INTO howls (caption, howler_id) SELECT '${caption}', id FROM users WHERE username = 'yuzinu'`);
+            await pool.query(`INSERT INTO howls (caption, howler_id) SELECT '${caption}', id FROM users WHERE username = '${username}'`);
         
             res.status(200).send("Howl created!");
         } catch (err) {
@@ -67,25 +67,25 @@ module.exports = {
     },
 
     // Update users howl
-    changeHowl: async (req, res, next) => {
+    changeHowl: async (req, res) => {
         try {
-            const id = parseInt(req.params.id);
+            const howlId = req.params.id;
 
             await pool.query(`UPDATE howls SET caption = $1, updated_at = current_timestamp WHERE id = $2`,
-            [req.body.caption, id]);
+            [req.body.caption, howlId]);
             
-            res.status(200);
+            res.status(200).send("Howl changed");
         } catch (err) {
             res.status(500).send(err);
         }
     },
 
     // Delete users howl
-    silenceHowl: async (req, res, next) => {
+    silenceHowl: async (req, res) => {
         try {
-            const id = parseInt(req.params.id);
+            const howlId = req.params.id;
 
-            await pool.query("DELETE FROM howls WHERE id = $1", [id]);
+            await pool.query("DELETE FROM howls WHERE id = $1", [howlId]);
             
             res.status(200).send("Howl deleted");
         } catch (err) {
