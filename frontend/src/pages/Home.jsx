@@ -1,9 +1,9 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useOutletContext } from 'react-router-dom';
 import React from "react";
 import Feed from "../components/Feed";
 
 function Home() {
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isAuthenticated, isLoading } = useOutletContext();
 
     if (isLoading) {
       return <div>Loading ...</div>;

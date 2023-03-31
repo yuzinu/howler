@@ -4,7 +4,7 @@ import { NavLink, Outlet} from "react-router-dom";
 import AuthButton from "../components/AuthButton";
 
 export default function RootLayout() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <div className="root-layout">
@@ -17,7 +17,7 @@ export default function RootLayout() {
       </header>
 
       <main>
-        <Outlet context={{ user, isAuthenticated }}/>
+        <Outlet context={{ user, isAuthenticated, isLoading }}/>
       </main>
     </div>
   );
