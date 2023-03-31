@@ -21,12 +21,37 @@ module.exports = {
     // Get all howls for the feed
     getHowls: async (req, res) => {
         try {
-            const { rows } = await pool.query('SELECT * FROM howls');
+            const howls= await pool.query('SELECT * FROM howls');
 
-            if(!rows) {
+            if(!howls.rows) {
                 res.status(404).send("No howls found!");
             }else{
-                res.status(200).json(rows);
+                res.status(200).json(howls.rows);
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
+
+    // Get all of users howls for the profile feed
+    getUserHowls: async (req, res) => {
+        try {
+            const howlerUsername = req.params.username;
+
+            const howlers = await pool.query('SELECT * FROM users WHERE username=($1)', [howlerUsername]);
+            
+            if(!howlers.rows) {
+                res.status(404).send("No howls found!");
+            }else{
+                const howler = howlers.rows[0];
+
+                try {
+                    const howls = await pool.query(`SELECT * FROM howls WHERE howler_id=($1)`, [howler.id]);
+
+                    res.status(200).json(howls.rows);
+                } catch (err) {
+                    res.status(500).send(err);
+                }
             }
         } catch (err) {
             res.status(500).send(err);
@@ -38,7 +63,7 @@ module.exports = {
         try {
             const howlId = req.params.id;
 
-            const howls = await pool.query(`SELECT * FROM howls WHERE id = ${howlId}`);
+            const howls = await pool.query('SELECT * FROM howls WHERE id=($1)', [howlId]);
 
             if(!howls.rows) {
                 res.send("No howl found!");
@@ -92,7 +117,7 @@ module.exports = {
               [req.body.caption, howlId]
             );
 
-            res.status(200).send("Howl changed");
+            res.status(200).json({ message: "Howl changed"});
         } catch (err) {
             res.status(500).send(err);
         }
