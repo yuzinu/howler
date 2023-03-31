@@ -10,6 +10,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import Howl from "./components/Howl";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 // layouts
 import RootLayout from "./layouts/RootLayout";
@@ -18,7 +19,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path="howl/:howlId" element={<Howl />} />
+      <Route path="/:username" element={<Profile />} />
+      <Route path="/howl/:howlId" element={<Howl />} />
     </Route>
   )
 );

@@ -12,6 +12,11 @@ export default function RootLayout() {
         <nav>
           <h1>Howler</h1>
           <NavLink to="/">Home</NavLink>
+          <br />
+          { isAuthenticated && 
+            <NavLink to={`/${user.nickname}`}>Profile</NavLink>
+          }
+          <br />
           <AuthButton />
         </nav>
       </header>

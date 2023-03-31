@@ -6,7 +6,7 @@ function Howl() {
     const { user, isAuthenticated } = useOutletContext();
     const navigate = useNavigate();
     const { howlId } = useParams();
-    // const id = parseInt(useLocation().pathname.split("/")[2]);
+
     const [howl, setHowl] = useState({
         id: "",
         caption: "",
@@ -37,7 +37,7 @@ function Howl() {
             });
         })
         .catch(err => err);
-    }, []);
+    }, [updatedHowl, setUpdatedHowl]);
 
     useEffect(() => {
       if (user) {
@@ -48,7 +48,7 @@ function Howl() {
     })
 
     const changeHowl = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         try {
             const body = { caption: updatedHowl.caption };
             const res = await fetch(`http://localhost:5000/api/howl/changeHowl/${howlId}`,
@@ -58,7 +58,14 @@ function Howl() {
                     body: JSON.stringify(body)
                 }
             );
-            // const data = await res.json();
+            const data = await res.json();
+            console.log(data.message);
+            setUpdatedHowl({
+                id: "",
+                caption: "",
+                howler: "",
+                updated_at: ""
+            });
         } catch (err) {
             console.error(err.message);
         }
@@ -105,9 +112,6 @@ function Howl() {
                     </button>
                 </>
             )}
-            <span>
-                {new Date(howl.updated_at).toLocaleDateString('en-US') + " at " + new Date(howl.updated_at).toLocaleTimeString('en-US')}
-            </span>
         </div>
     )
 };

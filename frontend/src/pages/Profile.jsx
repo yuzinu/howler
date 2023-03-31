@@ -1,8 +1,8 @@
 import { useOutletContext } from 'react-router-dom';
 import React from "react";
-import Feed from "../components/Feed";
+import UserFeed from '../components/UserFeed';
 
-function Home() {
+function Profile() {
     const { user, isAuthenticated, isLoading } = useOutletContext();
 
     if (isLoading) {
@@ -25,9 +25,9 @@ function Home() {
                     </div>
                 )
             }
-            <Feed user={user} isAuthenticated={isAuthenticated} />
+            <UserFeed user={user} isAuthenticated={isAuthenticated} />
         </>
     )
 }
 
-export default Home;
+export default Profile;

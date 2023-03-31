@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 
-function Feed({ user, isAuthenticated }) {
-    const [howls, setHowls] = useState([]);
+function UserFeed({ user, isAuthenticated }) {
+    const navigate = useNavigate();
+    const { username } = useParams();
+
+    const [userHowls, setUserHowls] = useState([]);
     const [caption, setCaption] = useState("");
 
     useEffect (() => {
-        fetch("http://localhost:5000/api/feed")
+        fetch(`http://localhost:5000/api/${username}`)
         .then(res => res.json())
         .then(data => {
-            setHowls(data);
+            setUserHowls(data);
         })
         .catch(err => console.log(err));
     }, [caption, setCaption]);
@@ -36,14 +40,14 @@ function Feed({ user, isAuthenticated }) {
 
     return (
         <div>
-            <h2 style={{ textAlign: 'start' }}>Feed</h2>
+            <h2 style={{ textAlign: 'start' }}>{username}'s Feed</h2>
             <div>
                 <ul>
-                    {howls.map(howl => {
+                    {userHowls.map(userHowl => {
                         return (
-                            <li key={howl.id} {...howl}>
-                                <div onClick={() => navigate(`/howl/${howl.id}`)} >
-                                    {howl.caption}
+                            <li key={userHowl.id} {...userHowl}>
+                                <div onClick={() => navigate(`/howl/${userHowl.id}`)} >
+                                    {userHowl.caption}
                                 </div>
                             </li>
                         );
@@ -75,4 +79,4 @@ function Feed({ user, isAuthenticated }) {
     )
 }
 
-export default Feed;
+export default UserFeed;
