@@ -2,7 +2,8 @@
 
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL,
-  username VARCHAR(16) NOT NULL UNIQUE,
+  username VARCHAR NOT NULL UNIQUE,
+  auth0_token VARCHAR,
   created_at TIMESTAMPTZ DEFAULT current_timestamp,
   updated_at TIMESTAMPTZ DEFAULT current_timestamp,
   PRIMARY KEY (id)
@@ -20,16 +21,11 @@ CREATE TABLE IF NOT EXISTS howls (
 
 -- SEED DATA
 
-INSERT INTO users (username) VALUES ('RUminion');
+INSERT INTO users (username, auth0_token)
+VALUES ('erickjmoon', 'auth0|6426dd72cff66fdcdc891d2d');
 
 INSERT INTO howls (caption, howler_id)
 SELECT 'Hello, are you a minion?', id
 FROM users
-WHERE username='RUminion';
+WHERE auth0_token='auth0|6426dd72cff66fdcdc891d2d';
 
-INSERT INTO users (username) VALUES ('yuzinu');
-
-INSERT INTO howls (caption, howler_id)
-SELECT 'This is yuzinu', id
-FROM users
-WHERE username='yuzinu';
