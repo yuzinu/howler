@@ -28,4 +28,3 @@ INSERT INTO howls (caption, howler_id)
 SELECT 'Hello, are you a minion?', id
 FROM users
 WHERE auth0_token='auth0|6426dd72cff66fdcdc891d2d';
-
