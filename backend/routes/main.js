@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mainController = require("../controllers/main");
 
-router.get("/", mainController.signedIn);
+router.post("/", mainController.signedIn);
 
 router.get("/api/feed", mainController.getHowls);
 

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { format } from 'date-fns';
 
 function Howl() {
+    const { user, isAuthenticated } = useOutletContext();
     const navigate = useNavigate();
     const { howlId } = useParams();
     // const id = parseInt(useLocation().pathname.split("/")[2]);
     const [howl, setHowl] = useState({
         id: "",
         caption: "",
-        created_at: "",
+        howler: "",
         updated_at: ""
     });
 
     const [updatedHowl, setUpdatedHowl] = useState({
         id: "",
         caption: "",
-        created_at: "",
+        howler: "",
         updated_at: ""
     });
 
@@ -25,10 +27,25 @@ function Howl() {
         })
         .then((res) => res.json())
         .then((data) => {
-            setHowl(data);
+            console.log(data);
+            setHowl({
+              id: data.id,
+              caption: data.caption,
+              howler: data.howler,
+              howler_id: data.howler_id,
+              updated_at: format(new Date(data.updated_at), 'MMM dd, yyyy h:mm a')
+            });
         })
         .catch(err => err);
-    }, [howl]);
+    }, []);
+
+    useEffect(() => {
+      if (user) {
+        console.log(user)
+        console.log(howl)
+        console.log(user.nickname==howl.howler)
+      }
+    })
 
     const changeHowl = async (e) => {
         // e.preventDefault();
@@ -61,28 +78,33 @@ function Howl() {
     return (
         <div>
             <div>
-                <label htmlFor="caption">Howl: </label>
                 <p>{howl.caption}</p>
+                <p>{howl.howler}</p>
+                <p>{howl.updated_at}</p>
             </div>
-            <form
-                onSubmit={changeHowl}
-                encType="multipart/form-data"
-            >
-                <input 
-                    type='text'
-                    name='caption'
-                    placeholder='Change howl here'
-                    onChange={(e) => {
-                        console.log(e.target.value);
-                        setUpdatedHowl({...updatedHowl, caption: e.target.value});
-                    }}
-                    value={updatedHowl.caption}
-                />
-                <button type='submit'>Change Howl</button>
-            </form>
-            <button type='button' onClick={deleteHowl}>
-                Delete Howl
-            </button>
+            { user && user.nickname==howl.howler && (
+                <>
+                    <form
+                        onSubmit={changeHowl}
+                        encType="multipart/form-data"
+                    >
+                        <input
+                            type='text'
+                            name='caption'
+                            placeholder='Change howl here'
+                            onChange={(e) => {
+                                console.log(e.target.value);
+                                setUpdatedHowl({...updatedHowl, caption: e.target.value});
+                            }}
+                            value={updatedHowl.caption}
+                        />
+                        <button type='submit'>Change Howl</button>
+                    </form>
+                    <button type='button' onClick={deleteHowl}>
+                        Delete Howl
+                    </button>
+                </>
+            )}
             <span>
                 {new Date(howl.updated_at).toLocaleDateString('en-US') + " at " + new Date(howl.updated_at).toLocaleTimeString('en-US')}
             </span>

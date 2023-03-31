@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import HowlList from "./HowlList";
 
-function Feed() {
+function Feed({ user, isAuthenticated }) {
   const [howls, setHowls] = useState([]);
   const [caption, setCaption] = useState("");
 
@@ -17,7 +17,10 @@ function Feed() {
   const addHowl = async (e) => {
     e.preventDefault();
     try {
-        const body = { caption: caption };
+        const body = {
+          auth0_token: user.sub,
+          caption: caption
+        };
         const res = await fetch('http://localhost:5000/api/howl/createHowl',
             {
                 method: "POST",
@@ -36,25 +39,27 @@ function Feed() {
     <div>
         <h2 style={{ textAlign: 'start' }}>Feed</h2>
         <HowlList howls={howls} />
-        <div className="mt-5">
-            <h2>Add a howl</h2>
-            <form onSubmit={addHowl}>
-                <div>
-                    <label htmlFor="caption" >Caption</label>
-                    <br />
-                    <textarea
-                        id="caption"
-                        name="caption"
-                        onChange={(e) => {
-                            setCaption(e.target.value);
-                        }}
-                        value={caption}
-                    >
-                    </textarea>
-                </div>
-                <button type="submit" className="btn btn-primary" value="Upload">Submit</button>
-            </form>
-        </div>
+        { isAuthenticated && (
+            <div className="mt-5">
+                <h2>Add a howl</h2>
+                <form onSubmit={addHowl}>
+                    <div>
+                        <label htmlFor="caption" >Caption</label>
+                        <br />
+                        <textarea
+                            id="caption"
+                            name="caption"
+                            onChange={(e) => {
+                                setCaption(e.target.value);
+                            }}
+                            value={caption}
+                        >
+                        </textarea>
+                    </div>
+                    <button type="submit" className="btn btn-primary" value="Upload">Submit</button>
+                </form>
+            </div>
+        )}
     </div>
   )
 }

@@ -1,8 +1,11 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import { NavLink, Outlet} from "react-router-dom";
 import AuthButton from "../components/AuthButton";
 
 export default function RootLayout() {
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <div className="root-layout">
       <header>
@@ -14,7 +17,7 @@ export default function RootLayout() {
       </header>
 
       <main>
-        <Outlet />
+        <Outlet context={{ user, isAuthenticated }}/>
       </main>
     </div>
   );
