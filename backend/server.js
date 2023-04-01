@@ -20,6 +20,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Backend is working!")
+})
 app.use("/", mainRoutes);
 
 app.listen(PORT, HOST, () => {
