@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Feed({ user, isAuthenticated }) {
     const [howls, setHowls] = useState([]);
