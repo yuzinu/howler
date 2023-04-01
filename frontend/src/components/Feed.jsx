@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Feed({ user, isAuthenticated }) {
+    const navigate = useNavigate();
+    
     const [howls, setHowls] = useState([]);
     const [caption, setCaption] = useState("");
 
