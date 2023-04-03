@@ -12,6 +12,8 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 
+import './scss/styles.scss'
+
 // layouts
 import RootLayout from "./layouts/RootLayout";
 

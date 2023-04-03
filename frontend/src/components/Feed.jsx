@@ -38,8 +38,34 @@ function Feed({ user, isAuthenticated }) {
     };
 
     return (
-        <div>
-            <h2 style={{ textAlign: 'start' }}>Feed</h2>
+        <div className='mt-4'>
+            <h2 style={{ textAlign: 'start' }}>Home</h2>
+            { isAuthenticated && (
+                <div className="mt-5">
+                    <h2>Add a howl</h2>
+                    <form onSubmit={addHowl}>
+                        <div>
+                            <br />
+                            <textarea
+                                id='caption'
+                                name='caption'
+                                className='w-100'
+                                placeholder='What’s Happening?'
+                                onChange={(e) => {
+                                    setCaption(e.target.value);
+                                }}
+                                value={caption}
+                            >
+                            </textarea>
+                        </div>
+                        <div className="d-flex justify-content-end">
+                            <button type="submit" className="btn rounded-pill text-white" style={{backgroundColor:"#50b7f5"}}>
+                                Howl
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
             <div>
                 <ul>
                     {howls.map(howl => {
@@ -53,27 +79,6 @@ function Feed({ user, isAuthenticated }) {
                     })}
                 </ul>
             </div>
-            { isAuthenticated && (
-                <div className="mt-5">
-                    <h2>Add a howl</h2>
-                    <form onSubmit={addHowl}>
-                        <div>
-                            <label htmlFor="caption" >Caption</label>
-                            <br />
-                            <textarea
-                                id="caption"
-                                name="caption"
-                                onChange={(e) => {
-                                    setCaption(e.target.value);
-                                }}
-                                value={caption}
-                            >
-                            </textarea>
-                        </div>
-                        <button type="submit" className="btn btn-primary" value="Upload">Submit</button>
-                    </form>
-                </div>
-            )}
         </div>
     )
 }
