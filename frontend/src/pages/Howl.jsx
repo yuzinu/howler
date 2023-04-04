@@ -7,6 +7,8 @@ function Howl() {
     const navigate = useNavigate();
     const { howlId } = useParams();
 
+    const [modalHowlSubmit, setModalHowlSubmit] = useState(false);
+
     const [howl, setHowl] = useState({
         id: "",
         caption: "",
@@ -83,35 +85,35 @@ function Howl() {
     };
 
     return (
-        <div>
-            <div>
+        <div className='container'>
+            <div className='ps-4 mt-4'>
                 <p>{howl.caption}</p>
                 <p>{howl.howler}</p>
                 <p>{howl.updated_at}</p>
+                { user && user.nickname==howl.howler && (
+                    <div>
+                        <form
+                            onSubmit={changeHowl}
+                            encType="multipart/form-data"
+                        >
+                            <input
+                                type='text'
+                                name='caption'
+                                placeholder='Change howl here'
+                                onChange={(e) => {
+                                    console.log(e.target.value);
+                                    setUpdatedHowl({...updatedHowl, caption: e.target.value});
+                                }}
+                                value={updatedHowl.caption}
+                            />
+                            <button disabled={!updatedHowl.caption} className='btn btn-primary rounded-pill' type='submit'>Change Howl</button>
+                        </form>
+                        <button type='button' className='btn btn-danger rounded-pill' onClick={deleteHowl}>
+                            Delete Howl
+                        </button>
+                    </div>
+                )}
             </div>
-            { user && user.nickname==howl.howler && (
-                <>
-                    <form
-                        onSubmit={changeHowl}
-                        encType="multipart/form-data"
-                    >
-                        <input
-                            type='text'
-                            name='caption'
-                            placeholder='Change howl here'
-                            onChange={(e) => {
-                                console.log(e.target.value);
-                                setUpdatedHowl({...updatedHowl, caption: e.target.value});
-                            }}
-                            value={updatedHowl.caption}
-                        />
-                        <button type='submit'>Change Howl</button>
-                    </form>
-                    <button type='button' onClick={deleteHowl}>
-                        Delete Howl
-                    </button>
-                </>
-            )}
         </div>
     )
 };

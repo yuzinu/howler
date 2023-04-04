@@ -21,12 +21,29 @@ module.exports = {
     // Get all howls for the feed
     getHowls: async (req, res) => {
         try {
-            const howls= await pool.query('SELECT * FROM howls');
+            const howls= await pool.query('SELECT * FROM howls ORDER BY id DESC');
 
             if(!howls.rows) {
                 res.status(404).send("No howls found!");
             }else{
                 res.status(200).json(howls.rows);
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
+    
+    // Get all howls for the feed
+    getUser: async (req, res) => {
+        try {
+            const howler_id = req.body.howler_id;
+
+            const user = await pool.query('SELECT * FROM users WHERE id=($1)', [howler_id]);
+
+            if(!user.rows) {
+                res.status(404).send("No howls found!");
+            }else{
+                res.status(200).json(user.rows[0]);
             }
         } catch (err) {
             res.status(500).send(err);

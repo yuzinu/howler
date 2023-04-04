@@ -7,10 +7,12 @@ import {
   RouterProvider
 } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import Howl from "./components/Howl";
+import Howl from "./pages/Howl";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+
+import './assets/scss/styles.scss';
 
 // layouts
 import RootLayout from "./layouts/RootLayout";
