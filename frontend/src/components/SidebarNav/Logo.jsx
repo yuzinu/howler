@@ -6,9 +6,9 @@ function Logo() {
   const navigate = useNavigate();
   
   return (
-    <div className="container">
-      <button className="mb-2" onClick={() => navigate('/')}>
-        <TbDog />
+    <div className="d-flex container ps-0">
+      <button className="btn btn-light rounded-pill mb-2" onClick={() => navigate('/')}>
+        <TbDog style={{height: "40px", width:"40px"}}/>
       </button>
     </div>
   )
