@@ -63,7 +63,7 @@ module.exports = {
                 const howler = howlers.rows[0];
 
                 try {
-                    const howls = await pool.query(`SELECT * FROM howls WHERE howler_id=($1)`, [howler.id]);
+                    const howls = await pool.query('SELECT * FROM howls WHERE howler_id=($1) ORDER BY id DESC', [howler.id]);
 
                     res.status(200).json(howls.rows);
                 } catch (err) {
