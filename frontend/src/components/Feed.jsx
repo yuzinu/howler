@@ -25,7 +25,7 @@ function Feed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
                 setHowls(data);
             })
             .catch(err => console.log(err));
-        }, [caption, setCaption]);
+        }, [caption, setCaption, modalHowlSubmit, setModalHowlSubmit]);
     }
 
     return (

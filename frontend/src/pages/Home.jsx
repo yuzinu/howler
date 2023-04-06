@@ -3,10 +3,9 @@ import React from "react";
 import Feed from "../components/Feed";
 
 function Home() {
-    const { isAuthenticated } = useOutletContext();
+    const { isAuthenticated, user, isLoading, modalHowlSubmit, setModalHowlSubmit } = useOutletContext();
     
     if (isAuthenticated) {
-        const { user, isLoading, modalHowlSubmit, setModalHowlSubmit } = useOutletContext();
     
         if (isLoading) {
           return <div>Loading ...</div>;
