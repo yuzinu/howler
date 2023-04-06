@@ -12,20 +12,14 @@ function Home() {
     // console.log(user);
 
     return (
-        <div className='container'>
-            <div className='d-flex justify-content-evenly'>
-                <div className="w-50">
-                    <Feed 
-                        user={user} 
-                        isAuthenticated={isAuthenticated} 
-                        modalHowlSubmit={modalHowlSubmit} 
-                        setModalHowlSubmit={setModalHowlSubmit}
-                    />
-                </div>
-                <div className="w-25 mt-4">
-                    {/* Add Search Bar What's happening and Who to follow here*/}
-                    <p>What's Happening</p>
-                </div>
+        <div className='container px-0'>
+            <div className='w-100'>
+                <Feed 
+                    user={user} 
+                    isAuthenticated={isAuthenticated} 
+                    modalHowlSubmit={modalHowlSubmit} 
+                    setModalHowlSubmit={setModalHowlSubmit}
+                />
             </div>
         </div>
     )
