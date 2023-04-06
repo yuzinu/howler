@@ -32,6 +32,21 @@ module.exports = {
             res.status(500).send(err);
         }
     },
+
+    // Get all howls for the feed
+    getRandomHowls: async (req, res) => {
+        try {
+            const randomHowls= await pool.query('SELECT * FROM howls ORDER BY random() limit 5');
+
+            if(!randomHowls.rows) {
+                res.status(404).send("No howls found!");
+            }else{
+                res.status(200).json(randomHowls.rows);
+            }
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
     
     // Get all howls for the feed
     getUser: async (req, res) => {
