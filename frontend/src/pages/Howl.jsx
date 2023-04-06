@@ -3,7 +3,7 @@ import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { format } from 'date-fns';
 
 function Howl() {
-    const { user } = useOutletContext();
+    const { user, isAuthenticated } = useOutletContext();
     const navigate = useNavigate();
     const { howlId } = useParams();
 
@@ -38,14 +38,6 @@ function Howl() {
         .catch(err => err);
     }, [howlId, updatedHowl, setUpdatedHowl]);
 
-    // useEffect(() => {
-    //   if (user) {
-    //     console.log(user)
-    //     console.log(howl)
-    //     console.log(user.nickname==howl.howler)
-    //   }
-    // })
-
     const changeHowl = async (e) => {
         e.preventDefault();
         try {
@@ -58,7 +50,6 @@ function Howl() {
                 }
             );
             const data = await res.json();
-            // console.log(data.message);
             setUpdatedHowl({
                 id: "",
                 caption: "",
@@ -81,37 +72,50 @@ function Howl() {
         }
     };
 
-    return (
-        <div className='container'>
-            <div className='ps-4 mt-4'>
-                <p>{howl.caption}</p>
-                <p>{howl.howler}</p>
-                <p>{howl.updated_at}</p>
-                { user && user.nickname==howl.howler && (
-                    <div>
-                        <form
-                            onSubmit={changeHowl}
-                            encType="multipart/form-data"
-                        >
-                            <input
-                                type='text'
-                                name='caption'
-                                placeholder='Change howl here'
-                                onChange={(e) => {
-                                    setUpdatedHowl({...updatedHowl, caption: e.target.value});
-                                }}
-                                value={updatedHowl.caption}
-                            />
-                            <button disabled={!updatedHowl.caption} className='btn btn-primary rounded-pill' type='submit'>Change Howl</button>
-                        </form>
-                        <button type='button' className='btn btn-danger rounded-pill' onClick={deleteHowl}>
-                            Delete Howl
-                        </button>
-                    </div>
-                )}
+    if(isAuthenticated){
+        return (
+            <div className='container'>
+                <div className='ps-4 mt-4'>
+                    <p>{howl.caption}</p>
+                    <p>{howl.howler}</p>
+                    <p>{howl.updated_at}</p>
+                    { user && user.nickname==howl.howler && (
+                        <div>
+                            <form
+                                onSubmit={changeHowl}
+                                encType="multipart/form-data"
+                            >
+                                <input
+                                    type='text'
+                                    name='caption'
+                                    placeholder='Change howl here'
+                                    onChange={(e) => {
+                                        setUpdatedHowl({...updatedHowl, caption: e.target.value});
+                                    }}
+                                    value={updatedHowl.caption}
+                                />
+                                <button disabled={!updatedHowl.caption} className='btn btn-primary rounded-pill' type='submit'>Change Howl</button>
+                            </form>
+                            <button type='button' className='btn btn-danger rounded-pill' onClick={deleteHowl}>
+                                Delete Howl
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return (
+            <div className='container'>
+                <div className='ps-4 mt-4'>
+                    {console.log(howl)}
+                    <p>{howl.caption}</p>
+                    <p>{howl.howler}</p>
+                    <p>{howl.updated_at}</p>
+                </div>
+            </div>
+        )
+    }
 };
 
 export default Howl;

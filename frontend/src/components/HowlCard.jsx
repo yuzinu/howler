@@ -30,7 +30,7 @@ export default function HowlCard({ howl, userHowl }) {
                 });
             })
             .catch(err => console.log(err));
-        }, [howlOwner, setHowlOwner]);
+        }, []);
 
         return (
             <div role="button" onClick={() => navigate(`/howl/${howl.id}`)} >
@@ -72,7 +72,7 @@ export default function HowlCard({ howl, userHowl }) {
                 });
             })
             .catch(err => console.log(err));
-        }, [howlOwner, setHowlOwner]);
+        }, []);
 
         return (
             <div role="button" onClick={() => navigate(`/howl/${userHowl.id}`)} >

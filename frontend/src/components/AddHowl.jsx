@@ -1,6 +1,8 @@
 import React from "react";
+import { useOutletContext } from "react-router-dom";
 
-function AddHowl({user, isAuthenticated, caption, setCaption}) {
+function AddHowl({ caption, setCaption }) {
+    const { user, isAuthenticated } = useOutletContext();
 
     const addHowl = async (e) => {
         e.preventDefault();
