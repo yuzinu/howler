@@ -1,8 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState } from "react";
-import { Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AuthButton from "../components/AuthButton";
 import SidebarNav from "../components/SidebarNav/SidebarNav";
+import WhatsHappening from "../components/WhatsHappening";
 
 export default function RootLayout() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -24,8 +25,8 @@ export default function RootLayout() {
             <main className="col-6 vh-100 px-0 feed">
               <Outlet context={{ user, isAuthenticated, isLoading, modalHowlSubmit, setModalHowlSubmit }}/>
             </main>
-            <div className="col-3 pt-2">
-              <p>What's Happening</p>
+            <div className="col-3 p-4">
+              <WhatsHappening />
             </div>
           </div>
         </div>
