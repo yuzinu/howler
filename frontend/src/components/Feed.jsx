@@ -18,14 +18,16 @@ function Feed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
     }, [caption, setCaption, modalHowlSubmit, setModalHowlSubmit]);
 
     return (
-        <div className='mt-4'>
-            <span className='fs-6 fw-bold'>Home</span>
-            <AddHowl 
-                user={user} 
-                isAuthenticated={isAuthenticated} 
-                caption={caption} 
-                setCaption={setCaption}
-            />
+        <>
+            <div className="sticky-top bg-white border-bottom">
+                <p className='fs-6 fw-bold p-2'>Home</p>
+                <AddHowl
+                    user={user} 
+                    isAuthenticated={isAuthenticated} 
+                    caption={caption} 
+                    setCaption={setCaption}
+                />
+            </div>
             <div>
                 <ul className='p-0'>
                     {howls.map(howl => {
@@ -33,11 +35,12 @@ function Feed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
                             <li className="" style={{listStyle:"none"}} key={howl.id}>
                                 < HowlCard howl={howl}/>
                             </li>
+                            
                         );
                     })}
                 </ul>
             </div>
-        </div>
+        </>
     )
 }
 

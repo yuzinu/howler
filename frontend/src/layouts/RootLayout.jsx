@@ -8,12 +8,12 @@ export default function RootLayout() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [modalHowlSubmit, setModalHowlSubmit] = useState(false);
 
-  if (user) {
+  if (isAuthenticated) {
     return (
         <div className="container">
           <div className="row h-100">
-            <header className="d-flex flex-column col-3 align-items-end" style={{maxHeight:"100vh"}}>
-              <SidebarNav 
+            <header className="col-3 d-flex flex-column align-items-end vh-100">
+              <SidebarNav
                 user={user} 
                 isAuthenticated={isAuthenticated} 
                 modalHowlSubmit={modalHowlSubmit} 
@@ -21,9 +21,12 @@ export default function RootLayout() {
                 />
               <AuthButton />
             </header>
-            <main className="col-9">
+            <main className="col-6 vh-100 px-0 feed">
               <Outlet context={{ user, isAuthenticated, isLoading, modalHowlSubmit, setModalHowlSubmit }}/>
             </main>
+            <div className="col-3 pt-2">
+              <p>What's Happening</p>
+            </div>
           </div>
         </div>
     );

@@ -36,7 +36,7 @@ function AddHowl({user, isAuthenticated, caption, setCaption}) {
                             <textarea
                                 id="caption"
                                 name="caption"
-                                className='card w-100 mb-3 p-3'
+                                className='border-top border-bottom w-100 p-3'
                                 placeholder='What’s Happening?'
                                 onChange={(e) => {
                                     setCaption(e.target.value);
@@ -45,7 +45,7 @@ function AddHowl({user, isAuthenticated, caption, setCaption}) {
                             >
                             </textarea>
                         </div>
-                        <div className="d-flex justify-content-end mb-3">
+                        <div className="d-flex justify-content-end p-3">
                             <button disabled={!caption} type="submit" className="btn btn-primary rounded-pill text-white" >
                                 Howl
                             </button>

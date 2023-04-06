@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AddHowl from './AddHowl';
+import HowlCard from './HowlCard';
 
 function UserFeed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
-    const navigate = useNavigate();
     const { username } = useParams();
 
     const [userHowls, setUserHowls] = useState([]);
@@ -20,29 +20,29 @@ function UserFeed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }
     }, [caption, setCaption, modalHowlSubmit, setModalHowlSubmit]);
 
     return (
-        <div className='mt-4'>
-            <h2 className='fs-6 fw-bold'>{user.name}</h2>
-            <small className="text-muted p-0 m-0">{userHowls.length > 0 ? userHowls.length : "0"} Howls</small>
-            <AddHowl
-                user={user} 
-                isAuthenticated={isAuthenticated} 
-                caption={caption} 
-                setCaption={setCaption}
-            />
+        <>
+            <div className="sticky-top bg-white border-bottom">
+                <h2 className='fs-6 fw-bold px-2 pt-2 m-0'>{user.name}</h2>
+                <small className="text-muted px-2 pb-2 m-0">{userHowls.length > 0 ? userHowls.length : "0"} Howls</small>
+                <AddHowl
+                    user={user} 
+                    isAuthenticated={isAuthenticated} 
+                    caption={caption} 
+                    setCaption={setCaption}
+                />
+            </div>
             <div>
-                <ul>
+                <ul className='p-0'>
                     {userHowls.map(userHowl => {
                         return (
-                            <li key={userHowl.id} {...userHowl}>
-                                <div onClick={() => navigate(`/howl/${userHowl.id}`)} >
-                                    {userHowl.caption}
-                                </div>
+                            <li style={{listStyle:"none"}} key={userHowl.id}>
+                                < HowlCard userHowl={userHowl}/>
                             </li>
                         );
                     })}
                 </ul>
             </div>
-        </div>
+        </>
     )
 }
 
