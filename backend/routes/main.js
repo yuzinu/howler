@@ -6,6 +6,8 @@ router.post("/", mainController.signedIn);
 
 router.get("/api/feed", mainController.getHowls);
 
+router.get("/api/random", mainController.getRandomHowls);
+
 router.post("/api/user", mainController.getUser);
 
 router.get("/api/:username", mainController.getUserHowls);

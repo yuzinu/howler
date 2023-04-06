@@ -3,11 +3,9 @@ import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { format } from 'date-fns';
 
 function Howl() {
-    const { user, isAuthenticated } = useOutletContext();
+    const { user } = useOutletContext();
     const navigate = useNavigate();
     const { howlId } = useParams();
-
-    const [modalHowlSubmit, setModalHowlSubmit] = useState(false);
 
     const [howl, setHowl] = useState({
         id: "",
@@ -29,7 +27,6 @@ function Howl() {
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             setHowl({
               id: data.id,
               caption: data.caption,
@@ -39,15 +36,15 @@ function Howl() {
             });
         })
         .catch(err => err);
-    }, [updatedHowl, setUpdatedHowl]);
+    }, [howlId, updatedHowl, setUpdatedHowl]);
 
-    useEffect(() => {
-      if (user) {
-        console.log(user)
-        console.log(howl)
-        console.log(user.nickname==howl.howler)
-      }
-    })
+    // useEffect(() => {
+    //   if (user) {
+    //     console.log(user)
+    //     console.log(howl)
+    //     console.log(user.nickname==howl.howler)
+    //   }
+    // })
 
     const changeHowl = async (e) => {
         e.preventDefault();
@@ -61,7 +58,7 @@ function Howl() {
                 }
             );
             const data = await res.json();
-            console.log(data.message);
+            // console.log(data.message);
             setUpdatedHowl({
                 id: "",
                 caption: "",
@@ -101,7 +98,6 @@ function Howl() {
                                 name='caption'
                                 placeholder='Change howl here'
                                 onChange={(e) => {
-                                    console.log(e.target.value);
                                     setUpdatedHowl({...updatedHowl, caption: e.target.value});
                                 }}
                                 value={updatedHowl.caption}
