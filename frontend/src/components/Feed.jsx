@@ -9,7 +9,7 @@ function Feed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
 
     if(isAuthenticated){
         useEffect (() => {
-            fetch("http://localhost:5000/api/feed")
+            fetch("https://howler-backend.onrender.com/api/feed")
             .then(res => res.json())
             .then(data => {
                 setHowls(data);
@@ -19,7 +19,7 @@ function Feed({ user, isAuthenticated, modalHowlSubmit, setModalHowlSubmit }) {
         }, [caption, setCaption, modalHowlSubmit, setModalHowlSubmit]);
     } else {
         useEffect (() => {
-            fetch("http://localhost:5000/api/feed")
+            fetch("https://howler-backend.onrender.com/api/feed")
             .then(res => res.json())
             .then(data => {
                 setHowls(data);

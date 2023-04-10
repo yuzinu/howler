@@ -12,7 +12,7 @@
   ],
   "main": "server.js",
   "scripts": {
-    "start": "nodemon -e 'js, jsx, json' server.js -L",
+    "start": "node server.js",
     "test": "mocha --recursive ./spec/*.js"
   },
   "dependencies": {

@@ -14,7 +14,7 @@ function AddHowl({ caption, setCaption }) {
             if(caption === '') {
                 setError(true);
             } else {
-                const res = await fetch('http://localhost:5000/api/howl/createHowl',
+                const res = await fetch('https://howler-backend.onrender.com/api/howl/createHowl',
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },

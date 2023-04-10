@@ -16,7 +16,7 @@ export default function HowlCard({ howl, userHowl }) {
             const body = {
                 howler_id: howl.howler_id
             };
-            fetch("http://localhost:5000/api/user",
+            fetch("https://howler-backend.onrender.com/api/user",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

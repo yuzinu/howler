@@ -22,7 +22,7 @@ function Howl() {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:5000/api/howl/${howlId}`, {
+        fetch(`https://howler-backend.onrender.com/api/howl/${howlId}`, {
             headers: { "Content-Type": "application/json" },
         })
         .then((res) => res.json())
@@ -42,7 +42,7 @@ function Howl() {
         e.preventDefault();
         try {
             const body = { caption: updatedHowl.caption };
-            const res = await fetch(`http://localhost:5000/api/howl/changeHowl/${howlId}`,
+            const res = await fetch(`https://howler-backend.onrender.com/api/howl/changeHowl/${howlId}`,
                 {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
@@ -63,7 +63,7 @@ function Howl() {
 
     const deleteHowl = async () => {
         try {
-            await fetch(`http://localhost:5000/api/howl/silenceHowl/${howlId}`, {
+            await fetch(`https://howler-backend.onrender.com/api/howl/silenceHowl/${howlId}`, {
                 method: "DELETE"
             });
             navigate('/');

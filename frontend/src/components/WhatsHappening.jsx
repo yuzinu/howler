@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function WhatsHappening() {
     const navigate = useNavigate();
@@ -7,7 +7,7 @@ function WhatsHappening() {
     const [randomHowls, setRandomHowls] = useState([]);
 
     useEffect (() => {
-        fetch("http://localhost:5000/api/random")
+        fetch("https://howler-backend.onrender.com/api/random")
         .then(res => res.json())
         .then(data => {
             setRandomHowls(data);

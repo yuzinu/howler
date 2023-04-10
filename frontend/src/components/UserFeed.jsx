@@ -11,7 +11,7 @@ function UserFeed() {
     const [caption, setCaption] = useState("");
 
     useEffect (() => {
-        fetch(`http://localhost:5000/api/${username}`)
+        fetch(`https://howler-backend.onrender.com/api/${username}`)
         .then(res => res.json())
         .then(data => {
             setUserHowls(data);
