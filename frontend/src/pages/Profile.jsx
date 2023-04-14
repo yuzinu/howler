@@ -3,21 +3,19 @@ import React from "react";
 import UserFeed from "../components/UserFeed";
 
 function Profile() {
-    const { isLoading } = useOutletContext();
+  const { isLoading } = useOutletContext();
 
-    if (isLoading) {
-      return <div>Loading ...</div>;
-    };
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
 
-    // console.log(user);
-
-    return (
-        <div className='container px-0'>
-            <div className='w-100'>
-                <UserFeed />
-            </div>
-        </div>
-    )
+  return (
+    <div className="container px-0">
+      <div className="w-100">
+        <UserFeed />
+      </div>
+    </div>
+  );
 }
 
 export default Profile;
