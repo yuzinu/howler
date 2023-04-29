@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import SidebarNav from "../components/Navbars/SidebarNav";
 import WhatsHappening from "../components/WhatsHappening";
@@ -9,6 +9,26 @@ import FooterNav from "../components/Navbars/FooterNav";
 export default function RootLayout() {
   const { logout, user, isAuthenticated, isLoading } = useAuth0();
   const [modalHowlSubmit, setModalHowlSubmit] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const body = {
+        username: user.nickname,
+        auth0_token: user.sub,
+      };
+
+      fetch("https://howler-backend.onrender.com/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          window.alert(data.message);
+        })
+        .catch((err) => console.log(err));
+    }
+  });
 
   if (isAuthenticated) {
     return (
