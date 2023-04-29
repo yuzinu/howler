@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import Feed from "../components/Feed";
 
@@ -10,26 +10,6 @@ function Home() {
     modalHowlSubmit,
     setModalHowlSubmit,
   } = useOutletContext();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      const body = {
-        username: user.nickname,
-        auth0_token: user.sub,
-      };
-
-      fetch("https://howler-backend.onrender.com/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          window.alert(data.message);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, []);
 
   if (isAuthenticated) {
     if (isLoading) {
